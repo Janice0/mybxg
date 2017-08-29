@@ -1,15 +1,29 @@
-/*
-* @Author: Administrator
-* @Date:   2017-08-28 21:37:38
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-28 21:40:48
-*/
+define(['jquery','cookie'], function($) {
+  // 实现登录功能
+  $('#loginBtn').click(function() {
+    $.ajax({
+      type: 'post',
+      url: '/api/login',
+      data: $('#loginForm').serialize(),
+      dataType: 'json',
+      success: function(data) {
+        if (data.code == 200) {
+          // 存储用户信息到cookie
+          $.cookie('loginInfo',JSON.stringify(data.result),{path : '/'});
+          // 登录成功
+          location.href = '/main/index';
+        } else {
+          alert('用户名或者密码错误');
+        }
+        var arr=[];
+        for (var i = 0; i <arr.length; i++) {
+          arr[i]
+        }
+        console.log(arr);
+        };
+      }
+    });
+    return false;
+  });
+});
 
-define(['jquery', 'utils', 'template', 'form','st'], function ($, utils, template) {
-    // 设置导航
-    utils.setMenu('/category/list');
-
-    // 获取分类id
-    var cg_id = utils.qs('cg_id'),
-        category = $('#category'),
-        html;
